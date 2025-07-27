@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase'; // Adjust the import path as necessary
 
-export default function AuthForm() {
+interface AuthFormProps {
+  onClose: () => void;
+}
+
+export default function AuthForm( { onClose }: AuthFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState<'creator' | 'learner'>('learner');
@@ -25,6 +29,12 @@ export default function AuthForm() {
   };
 
   return (
+    <>
+    <div className="p-4 max-w-md mx-auto bg-white shadow-md">
+      {/* Existing form code */}
+      <button onClick={onClose} className="mt-2 text-blue-500">Close</button>
+    </div>
+    
     <div className="p-4 max-w-md mx-auto bg-white shadow-md">
       <h2 className="text-2xl mb-4">{isLogin ? 'Login' : 'Sign Up'}</h2>
       <input
@@ -61,5 +71,6 @@ export default function AuthForm() {
         </span>
       </p>
     </div>
+    </>
   );
 }
